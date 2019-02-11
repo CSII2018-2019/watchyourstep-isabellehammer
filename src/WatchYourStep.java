@@ -2,7 +2,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JFrame; //might be able to delete
@@ -11,18 +14,18 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
-public class WatchYourStep extends JFrame {
+public class WatchYourStep extends JFrame { // task 1 step 1
 	
 	private static final int GRIDSIZE = 10;
 	private static final int NUMBEROFHOLES = 10;
 	
-	private TerrainButton[][] terrain = new TerrainButton[GRIDSIZE] [GRIDSIZE];
+	private TerrainButton[][] terrain = new TerrainButton[GRIDSIZE][GRIDSIZE];
 	private int totalRevealed = 0;
 
-	public WatchYourStep (){
-		initGUI();
+	public WatchYourStep (){ //task 1 step 2
+		initGUI(); // task 1 step 2a
 		setTitle("WatchYourStep");
-		setSize(300, 150);
+		setSize(600, 300);
 		setResizable(false);
 		//pack(); //why do we have to pack it if resizing is false???
 		setLocationRelativeTo(null);
@@ -30,7 +33,7 @@ public class WatchYourStep extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
-	private void initGUI() {
+	private void initGUI() { // task 1 step 3
 		JLabel titleLabel = new JLabel("Watch Your Step!");
 		Font titleFont = new Font (Font.SERIF, Font.BOLD + Font.ITALIC, 32);
 		titleLabel.setFont(titleFont);
@@ -58,15 +61,16 @@ public class WatchYourStep extends JFrame {
 				centerPanel.add(terrain[r][c]);
 			}
 		}
+	}
 		
 		private void clickedTerrain(int row, int col) {
-			if(!terrain[row][col].hasHole) {
+			if(!terrain[row][col].hasHole()) {
 				String message = "You stepped in a hole :( TRY AGAIN";
 				promptForNewGame(message);
 			} else {
 				check(row, col);
 				checkNeighbors(row, col);
-				if (GRIDSIZE - NUMBEROFHOLES = 0) {
+				if (GRIDSIZE - NUMBEROFHOLES == 0) {
 					String message = "Congratulations! You won!";
 					promptForNewGame(message);
 				}
@@ -82,28 +86,34 @@ public class WatchYourStep extends JFrame {
 			} else {
 				System.exit(0);
 			}
+		}
 			
 			private void showHoles() {
-				for (_____) {
-					for (_____) {
-						if (!terrain[row][col].hasHole) {
-							terrain[row][col].reveal(true); //???
+				for (int r = 0; r < GRIDSIZE; r++) {
+					for (int c = 0; c < GRIDSIZE; c++) {
+						if (!terrain[r][c].hasHole()) {
+							terrain[r][c].reveal(true);
 						}
 					}
 				}
 			}
-		}
+		
+
 		
 		private void newGame() {
-			for //NOT SURE WHAT TO DO HERE
-			setHoles(); //???
+			for (int r = 0; r < GRIDSIZE; r++) {
+				for (int c = 0; c < GRIDSIZE; c++) {
+			terrain[r][c].reset();
 			totalRevealed = 0;
 		}
+			}
+		}
+				
 		
 		private void check(int row, int col) {
-			if (row > -1 && row < GRIDSIZE && col > -1 && col < GRIDSIZE && !terrain[row][col].hasHole() && !terrain[row][col.isRevealed()) {
+			if (row > -1 && row < GRIDSIZE && col > -1 && col < GRIDSIZE && !terrain[row][col].hasHole() && !terrain[row][col].isRevealed()) {
 				terrain[row][col].reveal(true);
-				totalRevealed; //?????
+				totalRevealed++;
 				if (!terrain[row][col].isNextToHoles()) {
 					checkNeighbors(row, col);
 				}
@@ -136,7 +146,6 @@ public class WatchYourStep extends JFrame {
 			}
 		}
 		
-	}
 	
 	private void addToNeighborsHoleCount(int row, int col) {
 		addToHoleCount(row -1, col -1);
@@ -156,88 +165,6 @@ public class WatchYourStep extends JFrame {
 			terrain[row][col].reveal(true);
 		}
 	}
-	
-	
-	public class TerrainButton extends JButton {
-		
-		private static final int size = 50;
-		private int row = 0;
-		private int col = 0;
-		private int nextToHoles = 0;
-		private boolean hole = false;
-		private boolean revealed = false;
-		
-	}
-	
-	public WatchYourStep(int row, int col) {
-		
-		sizeWide(row);
-		sizeHigh(col);
-		setPreferredSize(size);
-		
-	}
-	
-	public int getRow() {
-		return row;
-	}
-	
-	public int getCol() {
-		return col;
-	}
-	
-	public int hasHole() {
-		return hole;
-	}
-	
-	public int isRevealed(){
-		return revealed;
-	}
-	
-	
-	public void setHole(hasHole) {
-		hole = hasHole;
-	}
-	
-	public void increaseHoleCount() {
-		nextToHoles = nextToHoles + 1;
-	}
-	
-	public int isNextToHoles() {
-		if (nextToHoles > 0) {
-			return true;
-		}
-	}
-	
-	public void reveal(reveal) {
-		revealed = reveal;
-		if (revealed = true) {
-			if (hole = true) {
-				setBackground(Color.BLACK);
-			}
-			else {
-				setBackground(Color.CYAN);
-				if (nextToHoles = 1) {
-					setText(Integer.toString(nextToHoles));
-				}
-			}
-		}
-		else {
-			setBackground(null);
-			setText(" ");
-		}
-	}
-	
-	public void reset() {
-		hole = false;
-		revealed = false;
-		nextToHoles = 0;
-		setText(" ");
-		setBackground(null);
-	}
-	
-	
-	
-	
 	
 	
 	
