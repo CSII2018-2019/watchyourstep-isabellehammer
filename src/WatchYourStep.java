@@ -27,7 +27,7 @@ public class WatchYourStep extends JFrame { // task 1 step 1
 		setTitle("WatchYourStep");
 		setSize(600, 300);
 		setResizable(false);
-		//pack(); //why do we have to pack it if resizing is false???
+		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
