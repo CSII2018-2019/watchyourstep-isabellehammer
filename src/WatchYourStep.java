@@ -61,16 +61,17 @@ public class WatchYourStep extends JFrame { // task 1 step 1
 				centerPanel.add(terrain[r][c]);
 			}
 		}
+		setHoles();
 	}
 		
 		private void clickedTerrain(int row, int col) {
-			if(!terrain[row][col].hasHole()) {
+			if(terrain[row][col].hasHole()) {
 				String message = "You stepped in a hole :( TRY AGAIN";
 				promptForNewGame(message);
 			} else {
 				check(row, col);
 				checkNeighbors(row, col);
-				if (GRIDSIZE - NUMBEROFHOLES == 0) {
+				if ((GRIDSIZE * GRIDSIZE) - totalRevealed == 0) {
 					String message = "Congratulations! You won!";
 					promptForNewGame(message);
 				}
