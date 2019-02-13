@@ -57,7 +57,7 @@ public boolean isNextToHoles() {
 }
 
 public void reveal(boolean reveal) {
-	revealed = reveal;
+	revealed = reveal; //can't remove this one
 	if (revealed == true) {
 		if (hole == true) {
 			setBackground(Color.BLACK);

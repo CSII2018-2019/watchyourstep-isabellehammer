@@ -20,7 +20,7 @@ public class WatchYourStep extends JFrame { // task 1 step 1
 	private static final int NUMBEROFHOLES = 10;
 	
 	private TerrainButton[][] terrain = new TerrainButton[GRIDSIZE][GRIDSIZE];
-	private int totalRevealed = 0;
+	private int totalRevealed = 0; //IS needed here because it creates the variable
 
 	public WatchYourStep (){ //task 1 step 2
 		initGUI(); // task 1 step 2a
@@ -71,7 +71,7 @@ public class WatchYourStep extends JFrame { // task 1 step 1
 			} else {
 				check(row, col);
 				checkNeighbors(row, col);
-				if ((GRIDSIZE * GRIDSIZE) - totalRevealed == 0) {
+				if ((GRIDSIZE * GRIDSIZE) - totalRevealed == NUMBEROFHOLES) { //when I add NUMBEROFHOLES, it works only the first time
 					String message = "Congratulations! You won!";
 					promptForNewGame(message);
 				}
@@ -108,12 +108,13 @@ public class WatchYourStep extends JFrame { // task 1 step 1
 			totalRevealed = 0;
 		}
 			}
+			setHoles();
 		}
 				
 		
 		private void check(int row, int col) {
 			if (row > -1 && row < GRIDSIZE && col > -1 && col < GRIDSIZE && !terrain[row][col].hasHole() && !terrain[row][col].isRevealed()) {
-				terrain[row][col].reveal(true);
+				terrain[row][col].reveal(true); //needed
 				totalRevealed++;
 				if (!terrain[row][col].isNextToHoles()) {
 					checkNeighbors(row, col);
@@ -143,7 +144,7 @@ public class WatchYourStep extends JFrame { // task 1 step 1
 				} while (terrain[pickRow][pickCol].hasHole());
 				terrain[pickRow][pickCol].setHole(true);
 				addToNeighborsHoleCount(pickRow, pickCol);
-				terrain[pickRow][pickCol].reveal(true);
+				//terrain[pickRow][pickCol].reveal(true); //removing this hides the holes but doesn't let me win
 			}
 		}
 		
@@ -163,7 +164,7 @@ public class WatchYourStep extends JFrame { // task 1 step 1
 	private void addToHoleCount(int row, int col) {
 		if (row > -1 && row < GRIDSIZE && col > -1 && col < GRIDSIZE) {
 			terrain[row][col].increaseHoleCount();
-			terrain[row][col].reveal(true);
+			//terrain[row][col].reveal(true);
 		}
 	}
 	
